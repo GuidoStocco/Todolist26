@@ -1,15 +1,28 @@
-import { View, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
-
+import { View, ActivityIndicator } from 'react-native';
+import { useEffect } from 'react';
+import { useAuth } from '@/hooks/useAuth';
+import { router } from 'expo-router';
+import { COLORS } from '@/constants/colors';
 
 export default function Index() {
+
+  const {user, loading} = useAuth();
+
+  useEffect(() => {
+
+    if(loading) return;
+
+    if(user){
+      router.replace('/(painel)/home/page')
+    }else{
+      router.replace('/(auth)/signin/page')
+    }
+
+  }, [user, loading])
+
   return (
-    <SafeAreaView>
-      <StatusBar style="dark" translucent={false}/>
-      <View>
-        <Text>Hello World</Text>
+      <View style={{flex:1, justifyContent:'center', alignItems:'center', backgroundColor: COLORS.background}}>
+        <ActivityIndicator size={'large'} color={COLORS.primary}/>
       </View>
-    </SafeAreaView>
   )
 }

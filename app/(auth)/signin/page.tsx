@@ -1,5 +1,4 @@
 import SignInScreen from '@/screen/signin';
-import { SigninFormData } from '@/hooks/useSignin';
 import {useSignin} from '@/hooks/useSignin'
 
 

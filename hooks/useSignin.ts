@@ -7,7 +7,7 @@ import { useRouter } from 'expo-router';
 
 
 const SigninSchema = z.object({
-    name: z.email('Email precisar ser válido'),
+    email: z.email('Email precisar ser válido'),
     password: z.string('A senha está errada')
 })
 
@@ -25,7 +25,7 @@ export const useSignin = () => {
 
     const onSubmit = async(data: SigninFormData) => {
         try {
-            await AuthServices.signIn(data.name, data.password);
+            await AuthServices.signIn(data.email, data.password);
             router.replace("/(painel)/home/page")
         } catch (error) {
             console.log(error)

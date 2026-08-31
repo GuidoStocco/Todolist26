@@ -11,10 +11,11 @@ interface SigninScreenProps {
   handleSubmit: UseFormHandleSubmit<SigninFormData>,
   errors: FieldErrors<SigninFormData>,
   isSubmitting: boolean,
-  onSubmit: (data:SigninFormData) => Promise<void>
+  onSubmit: (data:SigninFormData) => Promise<void>,
+  handleSignup:() => void
 }
 
-export default function SignInScreen({control, handleSubmit, errors, isSubmitting, onSubmit}: SigninScreenProps) {
+export default function SignInScreen({control, handleSubmit, errors, isSubmitting, onSubmit, handleSignup}: SigninScreenProps) {
   return (
     <TouchableNativeFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -22,14 +23,17 @@ export default function SignInScreen({control, handleSubmit, errors, isSubmittin
           <View style={styles.containerIcon}>
             <Ionicons name='checkmark-done-outline' size={40} style={styles.icon}/>
           </View>
-          <Text style={styles.textBox1}>Continue sua jornada rumo à produtividade consciente</Text>
+          <View style={styles.containerTitle}>
+          <Text style={styles.titleBox1}>Bem-vindo</Text>
+            <Text style={styles.textBox1}>Continue sua jornada rumo à produtividade consciente</Text>
+          </View>
         </View>
 
         <View style={styles.box2}>
           <View>
             <Text style={styles.titleInput}>Email</Text>
             <View style={styles.containerInputBox2}>
-              <Ionicons name='search-circle-outline' color={COLORS.primary} size={31} style={styles.iconInput}/>
+              <Ionicons name='mail-outline' color={COLORS.text} size={30} style={styles.iconInput}/>
               <Controller
                   control={control}
                   name='email'
@@ -55,7 +59,7 @@ export default function SignInScreen({control, handleSubmit, errors, isSubmittin
           <View>
             <Text style={styles.titleInput}>Senha</Text>
             <View style={styles.containerInputBox2}>
-              <Ionicons name='lock-closed-outline' color={COLORS.primary} size={31} style={styles.iconInput}/>
+              <Ionicons name='lock-closed-outline' color={COLORS.text} size={30} style={styles.iconInput}/>
               <Controller
                   control={control}
                   name='password'
@@ -86,16 +90,16 @@ export default function SignInScreen({control, handleSubmit, errors, isSubmittin
           </View>
 
 
-          <View style={styles.containerCriarConta}>
-            <Text style={styles.textConta}>Não tem uma conta?</Text>
-            <TouchableOpacity onPress={() => {}}>
-              <Text style={styles.titleCriarConta}>Criar conta</Text>    
-            </TouchableOpacity> 
-          </View>      
+              
         </View>
 
         <View style={styles.box3}>
-          
+          <View style={styles.containerCriarConta}>
+              <Text style={styles.textConta}>Não tem uma conta?</Text>
+              <TouchableOpacity onPress={handleSignup}>
+                <Text style={styles.titleCriarConta}>Criar conta</Text>    
+              </TouchableOpacity> 
+            </View>  
         </View>
 
       </View>

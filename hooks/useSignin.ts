@@ -32,12 +32,17 @@ export const useSignin = () => {
         }
     }
 
+    const handleSignup = () => {
+        router.push('/(auth)/signup/page');
+    }
+
     return{
         control,
         handleSubmit,
         errors,
         isSubmitting,
-        onSubmit
+        onSubmit,
+        handleSignup
     }
 
 }

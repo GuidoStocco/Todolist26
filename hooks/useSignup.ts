@@ -34,7 +34,11 @@ export const useSignup = () => {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
+
+    const handleSignin = () => {
+        router.replace('/(auth)/signin/page')
+    };
 
     return {
         control,
@@ -42,5 +46,6 @@ export const useSignup = () => {
         errors,
         isSubmitting,
         onSubmit,
+        handleSignin
     }
 }

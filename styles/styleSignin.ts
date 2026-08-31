@@ -5,32 +5,49 @@ export const styles = StyleSheet.create({
     container:{
         flex:1,
         marginTop: 10,
-        backgroundColor: COLORS.back2,
+        backgroundColor: COLORS.background,
         padding:10
     },
     box1:{
         flex:1,
         justifyContent:'flex-end',
         alignItems:'center',
-        paddingBottom:20
+        paddingBottom:20,
+        marginTop:20
     },
     containerIcon:{
         width: 70,
         height:70,
         borderWidth:1,
         borderColor:COLORS.primary,
-        backgroundColor:COLORS.background,
+        backgroundColor:COLORS.white,
         justifyContent:'center',
         alignItems:'center', 
         marginBottom:25,
-        borderRadius:5
+        borderRadius:5,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 8,
+        },
+        shadowOpacity: 0.44,
+        shadowRadius: 10.32,
+        elevation: 16,
     },
     icon:{
         color: COLORS.primary
     },
+    containerTitle:{
+        
+    },
+    titleBox1:{
+        alignSelf:'center',
+        fontSize:30,
+        fontWeight:'bold',
+        color:COLORS.primary
+    },
     textBox1:{
         fontSize:15,
-        fontWeight:'bold'
     },
     box2:{
         flex:2,
@@ -49,11 +66,11 @@ export const styles = StyleSheet.create({
         borderRadius:5,
         borderEndColor:COLORS.primary,
         marginTop: 10,
-        backgroundColor:COLORS.background,
+        backgroundColor:COLORS.white,
         height:50
     },
     iconInput:{
-        paddingLeft:2,
+        paddingLeft:5,
     },
     error:{
         color:'red'
@@ -77,8 +94,9 @@ export const styles = StyleSheet.create({
     containerCriarConta:{
         flex:1,
         flexDirection:'row',
-        justifyContent:'flex-end',
+        justifyContent:'center',
         alignItems:'flex-end',
+        marginBottom:15
     },
     textConta:{
         paddingRight:5,
@@ -86,7 +104,8 @@ export const styles = StyleSheet.create({
     },
     titleCriarConta:{
         color:COLORS.primary,
-        fontWeight:'500'
+        fontWeight:'500',
+        fontSize:16
     },
     box3:{
         flex:0.5

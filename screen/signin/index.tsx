@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Keyboard, TouchableNativeFeedback, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, Pressable, Keyboard, TouchableWithoutFeedback, TextInput, TouchableOpacity } from 'react-native';
 import { SigninFormData } from '@/hooks/useSignin';
 import {Control, UseFormHandleSubmit, FieldErrors, Controller,} from 'react-hook-form'
 import { styles } from '@/styles/styleSignin';
@@ -17,7 +17,7 @@ interface SigninScreenProps {
 
 export default function SignInScreen({control, handleSubmit, errors, isSubmitting, onSubmit, handleSignup}: SigninScreenProps) {
   return (
-    <TouchableNativeFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <View style={styles.box1}>
           <View style={styles.containerIcon}>
@@ -38,8 +38,7 @@ export default function SignInScreen({control, handleSubmit, errors, isSubmittin
                   control={control}
                   name='email'
                   defaultValue=''
-                  render={({field: {onBlur, onChange,value}})=> (
-                      <View style={{flex:1}}>
+                  render={({field: {onBlur, onChange,value}})=> (                   
                         <TextInput
                             placeholder='Digite seu email'
                             placeholderTextColor={COLORS.subTitle}
@@ -47,13 +46,13 @@ export default function SignInScreen({control, handleSubmit, errors, isSubmittin
                             onChangeText={onChange}
                             onBlur={onBlur}
                             value={value}
+                            style={{flex:1}}
                         />
-                      </View>
                   )
                 }
               /> 
             </View>  
-            <Text>{errors.email?.message}</Text>
+            <Text style={styles.error}>{errors.email?.message}</Text>
           </View>
 
           <View>
@@ -65,7 +64,7 @@ export default function SignInScreen({control, handleSubmit, errors, isSubmittin
                   name='password'
                   defaultValue=''
                   render={({field: {onBlur, onChange,value}})=> (
-                      <View style={{flex:1}}>
+                      
                         <TextInput
                             placeholder='******'
                             placeholderTextColor={COLORS.subTitle}
@@ -73,17 +72,18 @@ export default function SignInScreen({control, handleSubmit, errors, isSubmittin
                             onChangeText={onChange}
                             onBlur={onBlur}
                             value={value}
+                            style={{flex:1}}
                         />
-                      </View>
+                      
                   )
                 }
               /> 
             </View>  
-            <Text style={styles.error}>{errors.email?.message}</Text>
+            <Text style={styles.error}>{errors.password?.message}</Text>
           </View>
 
           <View style={styles.btnContainer}>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn} onPress={handleSubmit(onSubmit)}>
               <Text style={styles.textBtn}>{isSubmitting ? 'Entrando' : 'Entrar'}</Text>
               <Ionicons name='arrow-forward-outline' size={28} color={COLORS.white} style={{alignSelf:'flex-end', paddingLeft:5}}/>
             </TouchableOpacity>
@@ -103,6 +103,6 @@ export default function SignInScreen({control, handleSubmit, errors, isSubmittin
         </View>
 
       </View>
-    </TouchableNativeFeedback>
+    </TouchableWithoutFeedback>
   )
 }

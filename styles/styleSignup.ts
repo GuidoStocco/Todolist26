@@ -51,8 +51,7 @@ export const styles = StyleSheet.create({
     },
     box2:{
         flex:2,
-        
-        paddingTop:40
+        paddingTop:0
     },
     titleInput:{
         fontSize:20,
@@ -65,7 +64,7 @@ export const styles = StyleSheet.create({
         borderWidth:1,
         borderRadius:5,
         borderEndColor:COLORS.primary,
-        marginTop: 10,
+        marginTop: 5,
         backgroundColor:COLORS.white,
         height:50
     },
@@ -76,7 +75,7 @@ export const styles = StyleSheet.create({
         color:'red'
     },
     btnContainer:{
-        marginTop:50
+        marginTop:20
     },
     btn:{
         backgroundColor:COLORS.primary,

@@ -1,5 +1,5 @@
 import { Control, UseFormHandleSubmit, FieldErrors, Controller } from 'react-hook-form';
-import { View, Text, TouchableNativeFeedback, Keyboard, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, Keyboard, TextInput, TouchableOpacity } from 'react-native';
 import { SignupFormData } from '@/hooks/useSignup';
 import { styles } from '@/styles/styleSignup';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,14 +11,14 @@ interface SignUpScreenProps {
   handleSubmit: UseFormHandleSubmit<SignupFormData>;
   errors: FieldErrors<SignupFormData>;
   isSubmitting: boolean;
-  onSubmit: (data: SignupFormData) => void;
+  onSubmit: (data: SignupFormData) => Promise<void>;
   handleSignin: () => void
 }
 
 
 export default function SignUpScreen({ control, handleSubmit, errors, isSubmitting, onSubmit, handleSignin }: SignUpScreenProps) {
   return (
-    <TouchableNativeFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <View style={styles.box1}>
         <View style={styles.containerIcon}>
@@ -32,9 +32,35 @@ export default function SignUpScreen({ control, handleSubmit, errors, isSubmitti
 
       <View style={styles.box2}>
         <View>
+          <Text style={styles.titleInput}>Nome</Text>
+          <View style={styles.containerInputBox2}>
+            <Ionicons name='person-outline' color={COLORS.text} size={28} style={styles.iconInput}/>
+            <Controller
+                control={control}
+                name='name'
+                defaultValue=''
+                render={({field: {onBlur, onChange,value}})=> (
+                    <View style={{flex:1}}>
+                      <TextInput
+                          placeholder='Guido Stocco'
+                          placeholderTextColor={COLORS.subTitle}
+                          autoCapitalize='words'
+                          onChangeText={onChange}
+                          onBlur={onBlur}
+                          value={value}
+                      />
+                    </View>
+                )
+              }
+            /> 
+          </View>  
+          <Text style={styles.error}>{errors.name?.message}</Text>
+        </View>
+
+        <View>
           <Text style={styles.titleInput}>Email</Text>
           <View style={styles.containerInputBox2}>
-            <Ionicons name='mail-outline' color={COLORS.text} size={30} style={styles.iconInput}/>
+            <Ionicons name='mail-outline' color={COLORS.text} size={28} style={styles.iconInput}/>
             <Controller
                 control={control}
                 name='email'
@@ -54,13 +80,13 @@ export default function SignUpScreen({ control, handleSubmit, errors, isSubmitti
               }
             /> 
           </View>  
-          <Text>{errors.email?.message}</Text>
+          <Text style={styles.error}>{errors.email?.message}</Text>
         </View>
 
         <View>
           <Text style={styles.titleInput}>Senha</Text>
           <View style={styles.containerInputBox2}>
-            <Ionicons name='lock-closed-outline' color={COLORS.text} size={30} style={styles.iconInput}/>
+            <Ionicons name='lock-closed-outline' color={COLORS.text} size={28} style={styles.iconInput}/>
             <Controller
                 control={control}
                 name='password'
@@ -74,17 +100,45 @@ export default function SignUpScreen({ control, handleSubmit, errors, isSubmitti
                           onChangeText={onChange}
                           onBlur={onBlur}
                           value={value}
+                          secureTextEntry
                       />
                     </View>
                 )
               }
             /> 
           </View>  
-          <Text style={styles.error}>{errors.email?.message}</Text>
+          <Text style={styles.error}>{errors.password?.message}</Text>
+        </View>
+
+        <View>
+          <Text style={styles.titleInput}>Confirme sua senha</Text>
+          <View style={styles.containerInputBox2}>
+            <Ionicons name='lock-closed-outline' color={COLORS.text} size={28} style={styles.iconInput}/>
+            <Controller
+                control={control}
+                name='confirmPassword'
+                defaultValue=''
+                render={({field: {onBlur, onChange,value}})=> (
+                    <View style={{flex:1}}>
+                      <TextInput
+                          placeholder='******'
+                          placeholderTextColor={COLORS.subTitle}
+                          autoCapitalize='none'
+                          onChangeText={onChange}
+                          onBlur={onBlur}
+                          value={value}
+                          secureTextEntry
+                      />
+                    </View>
+                )
+              }
+            /> 
+          </View>  
+          <Text style={styles.error}>{errors.password?.message}</Text>
         </View>
 
         <View style={styles.btnContainer}>
-          <TouchableOpacity style={styles.btn}>
+          <TouchableOpacity style={styles.btn} onPress={handleSubmit(onSubmit)}>
             <Text style={styles.textBtn}>{isSubmitting ? 'Cadastrando' : 'Cadastrar'}</Text>
             <Ionicons name='arrow-forward-outline' size={28} color={COLORS.white} style={{alignSelf:'flex-end', paddingLeft:5}}/>
           </TouchableOpacity>
@@ -104,6 +158,6 @@ export default function SignUpScreen({ control, handleSubmit, errors, isSubmitti
       </View>
 
     </View>
-  </TouchableNativeFeedback>
+  </TouchableWithoutFeedback>
   )
 }

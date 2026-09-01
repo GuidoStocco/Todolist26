@@ -1,7 +1,14 @@
 import {db} from '@/services/firebase';
-import {onSnapshot, collection, doc, updateDoc, addDoc, query, orderBy} from 'firebase/firestore'
+import {onSnapshot, collection, doc, updateDoc, addDoc, query, orderBy, serverTimestamp, Timestamp} from 'firebase/firestore'
 
-
+type Task = {
+    id: string;
+    title: string;
+    description: string;
+    time: string;
+    important: boolean;
+    createdAt: Timestamp;
+}
 
 
 export const taskService = {
@@ -14,12 +21,29 @@ export const taskService = {
             title: data.title,
             description: data.description,
             time: data.time,
-            important:data.important
+            important:data.important,
+            createdAt: serverTimestamp()
         });
     },
 
-    subscribe: () => {
+    subscribeTask: (uid: string, callback: (tasks: Task[]) => void) => {
+        const taskRef = collection(db, 'users', uid, 'tasks');
 
+        const q = query(taskRef, orderBy('createdAt', 'desc'));
+
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+
+            const tasks = snapshot.docs.map((doc) => {
+                return {
+                    id: doc.id,
+                    ...doc.data()
+                } as Task;
+            })
+
+            callback(tasks);
+        })
+
+        return unsubscribe;
     },
 
     updateTask: async() => {

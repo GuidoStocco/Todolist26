@@ -1,20 +1,23 @@
 import {db} from '@/services/firebase';
 import {onSnapshot, collection, doc, updateDoc, addDoc, query, orderBy, serverTimestamp, Timestamp, deleteDoc} from 'firebase/firestore'
 
-type Task = {
+export type Task = taskInput & {
     id: string;
+    createdAt: Timestamp;
+}
+
+export type taskInput = {
     title: string;
     description: string;
     time: string;
     important: boolean;
-    createdAt: Timestamp;
 }
 
 // serverTimestamp() é uma função que retorna o timestamp atual do servidor (data e hora) melhor para criar tarefas
 
 export const taskService = {
 
-    createTask: async(uid: string, data:{title:string, description:string, time:string, important:boolean}) => {
+    createTask: async(uid: string, data: taskInput) => {
 
         const taskRef = collection(db, 'users', uid, 'tasks');
 
@@ -50,6 +53,9 @@ export const taskService = {
         return unsubscribe;
     },
     // partial serve para atualizar apenas alguns campos da tarefa
+    // taskId é o id da tarefa
+    // data é um objeto com os campos que serão atualizados
+    // uid é o id do usuário
     updateTask: async(uid: string, taskId: string, data:Partial<{title:string, description:string, time:string, important:boolean}>) => {
 
         const taskRef = doc(db, 'users', uid, 'tasks', taskId);

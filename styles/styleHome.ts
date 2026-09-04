@@ -84,7 +84,6 @@ export const styles = StyleSheet.create({
     },
     containerTasks:{
         flex:1,
-        borderWidth:1,
         marginTop:10
     },
 })

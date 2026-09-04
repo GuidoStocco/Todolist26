@@ -1,11 +1,21 @@
-import { View, Text, TextInput, Pressable, FlatList } from 'react-native';
+import { View, Text, TextInput, Pressable, FlatList} from 'react-native';
 import { SafeAreaView, Edge } from 'react-native-safe-area-context';
 import {styles} from '@/styles/styleHome'
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '@/constants/colors';
-import TaskScreen from '../task';
+import { taskInput, Task } from '@/services/taskServices';
+import TaskScreen from '@/screen/task';
 
-export default function HomeScreen() {
+
+interface HomeScreenProps {
+  tasks: Task[];
+  loading: boolean;
+  createTask: (data: taskInput) => void;
+  updateTask: (taskId: string, data: Partial<taskInput>) => void;
+  deleteTask: (taskId: string) => void;
+}
+
+export default function HomeScreen({tasks, loading, createTask, updateTask, deleteTask}: HomeScreenProps) {
   return (
     <SafeAreaView style={{flex:1}} edges={['top']}>
       <View style={styles.container}>
@@ -45,13 +55,14 @@ export default function HomeScreen() {
           
           <View style={styles.containerTasks}>
             {/* <FlatList 
-              data={}
+              data={tasks}
               showsVerticalScrollIndicator={false}
-              renderItem={() => (
-                <TaskScreen />
+              renderItem={({item}) => (
+                <TaskScreen task={item} />
               )}
 
             /> */}
+            <TaskScreen />
           </View>
 
         </View>

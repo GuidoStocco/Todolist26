@@ -2,7 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // @ts-ignore — bug conhecido de tipagem do firebase-js-sdk, função existe em runtime
-import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+import { initializeAuth, getReactNativePersistence, getAuth, Auth } from "firebase/auth";
+import { Platform } from "react-native";
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_API_KEY,
@@ -12,11 +13,18 @@ const firebaseConfig = {
   messagingSenderId: process.env.EXPO_PUBLIC_MESSAGING,
   appId: process.env.EXPO_PUBLIC_APP_ID
 };
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(AsyncStorage)
-});
+let auth: Auth;
+
+if (Platform.OS === 'web') {
+  auth = getAuth(app);
+} else {
+  auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(AsyncStorage)
+  });
+}
 
 export { auth, db };

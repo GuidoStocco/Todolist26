@@ -56,7 +56,7 @@ export const taskService = {
     // taskId é o id da tarefa
     // data é um objeto com os campos que serão atualizados
     // uid é o id do usuário
-    updateTask: async(uid: string, taskId: string, data:Partial<{title:string, description:string, time:string, important:boolean}>) => {
+    updateTask: async(uid: string, taskId: string, data:Partial<taskInput>) => {
 
         const taskRef = doc(db, 'users', uid, 'tasks', taskId);
 

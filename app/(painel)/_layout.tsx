@@ -16,7 +16,7 @@ export default function PainelLayout() {
              }} />
             <Tabs.Screen name="perfil/page" options={{ headerShown: false,
                 tabBarIcon:(({size, color, focused}) => {
-                    return <Ionicons name="cube-outline" size={30} color={COLORS.primary} focused/>
+                    return <Ionicons name="settings-outline" size={30} color={COLORS.primary} focused/>
                  }),
                  tabBarLabel:'Config',
                  tabBarActiveTintColor: COLORS.primary,

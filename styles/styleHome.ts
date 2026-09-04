@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
         gap:2
     },
     titleBox1:{
-        fontSize:17,
+        fontSize:16,
         color: COLORS.white,
         fontWeight:'600'
     },

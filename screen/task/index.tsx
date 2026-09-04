@@ -16,7 +16,8 @@ export default function TaskScreen() {
             </View>
             {/* text */}
             <View style={styles.containerTitle}>
-                <Text style={styles.textDescription}>Terminar feature React native</Text>
+                {/* maximo de letras 31 */}
+                <Text style={styles.textDescription}>Terminar feature React native</Text>  
                 <View style={styles.containerTime}>
                     <View style={styles.time}>
                         <Ionicons name='time-outline' size={18} style={styles.iconTime}/>
@@ -24,6 +25,7 @@ export default function TaskScreen() {
                     </View>
                     <View style={styles.subTitle}>
                         <Ionicons name='folder-open-outline' size={18} style={styles.iconTime}/>
+                        {/* maximo15 */}
                         <Text style={styles.textTime}>Feature</Text>
                     </View>
                 </View>

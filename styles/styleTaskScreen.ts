@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
         flex:1,
     },
     icon:{
-        color:COLORS.primary
+        // color:COLORS.primary
     },
     containerTitle:{
         flex:1,

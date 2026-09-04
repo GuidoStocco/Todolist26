@@ -5,6 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '@/constants/colors';
 import { taskInput, Task } from '@/services/taskServices';
 import TaskScreen from '@/screen/task';
+import { randomMessages } from '@/hooks/useHome';
+import { useAuth } from '@/hooks/useAuth';
 
 
 interface HomeScreenProps {
@@ -16,6 +18,9 @@ interface HomeScreenProps {
 }
 
 export default function HomeScreen({tasks, loading, createTask, updateTask, deleteTask}: HomeScreenProps) {
+
+  const {user} = useAuth()
+
   return (
     <SafeAreaView style={{flex:1}} edges={['top']}>
       <View style={styles.container}>
@@ -23,8 +28,8 @@ export default function HomeScreen({tasks, loading, createTask, updateTask, dele
         <View style={styles.box1}>
           <View style={styles.containerTitleBox1}>
             <Text style={styles.titleBox1}>Bem-vindo(a)</Text>
-            <Text style={[styles.titleBox1, {paddingLeft:4,paddingRight:3}]}>Guido Stocco,</Text>
-            <Text style={styles.titleBox1}>Foco no progresso</Text>
+            <Text style={[styles.titleBox1, {paddingLeft:4,paddingRight:3}]}>{user?.displayName},</Text>
+            <Text style={styles.titleBox1}>{randomMessages()}</Text>
           </View>
 
           <View style={styles.containerSearchBox1}>

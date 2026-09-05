@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 
 
 
@@ -13,3 +15,20 @@ const messages = [
   export const randomMessages = () => {
     return messages[Math.floor(Math.random() * messages.length)];
 };
+
+
+
+export const useModal = () => {
+    const [modal,setModal] = useState<boolean>(false);
+
+
+    const handleModal = () => {
+      setModal(!modal)
+    }
+
+
+    return{
+      handleModal,
+      modal
+    }
+}

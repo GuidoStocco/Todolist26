@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Pressable, FlatList} from 'react-native';
+import { View, Text, TextInput, Pressable, FlatList, Modal} from 'react-native';
 import { SafeAreaView, Edge } from 'react-native-safe-area-context';
 import {styles} from '@/styles/styleHome'
 import { Ionicons } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import { taskInput, Task } from '@/services/taskServices';
 import TaskScreen from '@/screen/task';
 import { randomMessages } from '@/hooks/useHome';
 import { useAuth } from '@/hooks/useAuth';
+import ModalScreen from './modal';
 
 
 interface HomeScreenProps {
@@ -15,9 +16,11 @@ interface HomeScreenProps {
   createTask: (data: taskInput) => void;
   updateTask: (taskId: string, data: Partial<taskInput>) => void;
   deleteTask: (taskId: string) => void;
+  handleModal: () => void;
+  modal: boolean;
 }
 
-export default function HomeScreen({tasks, loading, createTask, updateTask, deleteTask}: HomeScreenProps) {
+export default function HomeScreen({tasks, loading, createTask, updateTask, deleteTask, handleModal, modal}: HomeScreenProps) {
 
   const {user} = useAuth()
 
@@ -41,12 +44,21 @@ export default function HomeScreen({tasks, loading, createTask, updateTask, dele
               />
             </View>
 
-            <Pressable style={styles.btnCriar}>
+            <Pressable style={styles.btnCriar} onPress={handleModal}>
               <Text style={styles.textCriar}>+</Text>
             </Pressable>
           </View>
           
         </View>
+
+        <Modal
+          visible={modal}
+          animationType='fade'
+          transparent={true}
+          onRequestClose={handleModal}
+        >
+          <ModalScreen fecharModal={handleModal} createTask={createTask}/>
+        </Modal>
 
         <View style={styles.box2}>
 
